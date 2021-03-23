@@ -1,0 +1,65 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Twitly" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/accent_blue</item>
+        <item name="colorPrimaryVariant">@color/light_gray</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/accent_blue</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="MenuStyle" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="DialogTheme" parent="android:Theme.Holo.Dialog">
+        <item name="android:alertDialogStyle">@style/CustomAlertDialogStyle</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:textColorPrimary">@color/accent_blue</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:textColor">@color/accent_blue</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="CustomAlertDialogStyle">
+        <item name="android:bottomBright">@color/transparent</item>
+        <item name="android:bottomDark">@color/transparent</item>
+        <item name="android:bottomMedium">@color/transparent</item>
+        <item name="android:centerBright">@color/transparent</item>
+        <item name="android:centerDark">@color/transparent</item>
+        <item name="android:centerMedium">@color/transparent</item>
+        <item name="android:fullBright">@color/transparent</item>
+        <item name="android:fullDark">@color/transparent</item>
+        <item name="android:topBright">@color/transparent</item>
+        <item name="android:topDark">@color/transparent</item>
+    </style>
+
+    <color name="colorDefaultBackground">@color/white</color>
+    <color name="colorDefaultBackground2">@color/white</color>
+    <color name="colorDefaultBackground3">@color/white</color>
+    <color name="colorBarBackground1">@color/accent_blue</color>
+    <color name="colorBarBackground2">@color/white</color>
+    <color name="colorButtonBackground1">@color/accent_whitish</color>
+    <color name="colorButtonBackground2">@color/accent_whitish</color>
+    <color name="colorSnackBarBackground">@color/accent_whitish</color>
+    <color name="colorUserItemBackground">@color/white</color>
+    <color name="colorBottomNavBar">@color/white</color>
+    <color name="colorEditTextBackground">#EBEEF0</color>
+    <color name="colorPopUpButton">#AAB8C2</color>
+
+    <color name="colorText1">@color/accent_blackish</color>
+    <color name="colorText2">@color/white</color>
+    <color name="colorText3">@color/extra_light_blue</color>
+    <color name="colorText4">@color/white</color>
+    <color name="colorText5">@color/red</color>
+    <color name="colorText6">@color/accent_blackish</color>
+    <color name="colorText7">@color/accent_blackish</color>
+    <color name="colorHintText">#5F7486</color>
+</resources>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.CommentsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/comments_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:backgroundTint="@color/colorBarBackground2"
+        android:elevation="0dp"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/comments_toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:backgroundTint="@color/colorBarBackground2">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:background="@android:color/transparent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/comments"
+                    android:textColor="@color/colorText6"
+                    android:textSize="@dimen/_16ssp"
+                    android:fontFamily="@font/sf_medium"
+                    android:includeFontPadding="false"/>
+
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_border"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_below="@id/comments_appBarLayout"
+        android:orientation="horizontal"
+        android:background="@color/accent_grey"/>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_border"
+        android:layout_above="@id/layout_border2">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comments_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_border2"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_above="@id/comments_bottomLayout"
+        android:orientation="horizontal"
+        android:background="@color/accent_grey"/>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/comments_bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/colorBarBackground2"
+        android:elevation="0dp"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/comments_bottomToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            app:contentInsetStart="0dp"
+            android:backgroundTint="@color/colorBarBackground2">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:padding="@dimen/_4sdp"
+                android:background="@android:color/transparent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/comments_etComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/comments_tvShare"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_3sdp"
+                    android:backgroundTint="@color/accent_blue"
+                    android:hint="@string/comment"
+                    android:inputType="textMultiLine"
+                    android:maxHeight="@dimen/_100sdp"
+                    android:importantForAutofill="no" />
+
+                <com.wafflecopter.charcounttextview.CharCountTextView
+                    android:id="@+id/comments_tvCharCounter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/comments_etComment"
+                    android:layout_toStartOf="@id/comments_tvShare"
+                    android:text="@string/_100"
+                    android:textSize="@dimen/_10ssp"
+                    android:layout_marginEnd="@dimen/_7sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:fontFamily="@font/sf_medium"
+                    android:includeFontPadding="false"
+                    app:maxCharacters="150"
+                    app:exceededTextColor="@color/accent_red"/>
+
+                <TextView
+                    android:id="@+id/comments_tvShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/share"
+                    android:textSize="@dimen/_13ssp"
+                    android:textColor="@color/accent_blue"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    tools:ignore="UnusedAttribute" />
+
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+</RelativeLayout>

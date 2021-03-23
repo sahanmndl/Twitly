@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDefaultBackground3"
+    tools:context=".Activities.EditProfileActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/editProfile_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:elevation="@dimen/_4sdp"
+        app:elevation="@dimen/_4sdp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/editProfile_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBarBackground2"
+            app:titleTextColor="@color/colorText6"
+            app:contentInsetEnd="@dimen/_14sdp"
+            style="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:background="@android:color/transparent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/edit_profile"
+                    android:textColor="@color/colorText6"
+                    android:textSize="@dimen/_16ssp"
+                    android:fontFamily="@font/sf_medium"
+                    android:includeFontPadding="false"
+                    tools:ignore="RelativeOverlap" />
+
+                <ImageView
+                    android:id="@+id/editProfile_btnSave"
+                    android:layout_width="@dimen/_14sdp"
+                    android:layout_height="@dimen/_14sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_checked"
+                    android:contentDescription="@string/app_name"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    tools:ignore="UnusedAttribute" />
+
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_border"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_below="@id/editProfile_appBarLayout"
+        android:orientation="horizontal"
+        android:background="@color/accent_grey"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_border">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingBottom="@dimen/_18sdp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/editProfile_profilePic"
+                android:layout_width="@dimen/_75sdp"
+                android:layout_height="@dimen/_75sdp"
+                android:src="@drawable/user"
+                android:layout_marginTop="@dimen/_28sdp"/>
+
+            <TextView
+                android:id="@+id/editProfile_changeProfilePic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="@string/change_profile_picture"
+                android:textSize="@dimen/_11ssp"
+                android:textColor="@color/dark_blue"
+                android:fontFamily="@font/sf_medium"
+                android:includeFontPadding="false"
+                android:gravity="center"
+                android:foreground="?android:attr/selectableItemBackground"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/editProfile_removeProfilePic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="@string/remove_profile_picture"
+                android:textSize="@dimen/_11ssp"
+                android:textColor="@color/red"
+                android:fontFamily="@font/sf_medium"
+                android:includeFontPadding="false"
+                android:gravity="center"
+                android:visibility="gone"
+                android:foreground="?android:attr/selectableItemBackground"
+                tools:ignore="UnusedAttribute" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editProfile_textInputLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:elevation="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_22sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
+                android:layout_marginRight="@dimen/_12sdp"
+                tools:targetApi="lollipop">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editProfile_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:hint="@string/name"
+                    android:fontFamily="@font/sf_medium"
+                    android:includeFontPadding="false"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editProfile_textInputLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:elevation="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
+                android:layout_marginRight="@dimen/_12sdp"
+                tools:targetApi="lollipop">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editProfile_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:hint="@string/username"
+                    android:fontFamily="@font/sf_medium"
+                    android:includeFontPadding="false"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editProfile_textInputLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:elevation="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
+                android:layout_marginRight="@dimen/_12sdp"
+                tools:targetApi="lollipop">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editProfile_bio"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textMultiLine"
+                    android:maxLines="3"
+                    android:hint="@string/bio"
+                    android:fontFamily="@font/sf_medium"
+                    android:includeFontPadding="false"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

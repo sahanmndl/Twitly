@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDefaultBackground3"
+    tools:context=".Activities.ComposeActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/compose_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:backgroundTint="@color/colorBarBackground2"
+        android:elevation="@dimen/_4sdp"
+        app:elevation="@dimen/_4sdp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/compose_toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:backgroundTint="@color/colorBarBackground2">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_14sdp"
+                android:backgroundTint="@android:color/transparent"
+                android:gravity="center_vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/compose_btnPost"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center"
+                    android:text="@string/post"
+                    android:textSize="@dimen/_10ssp"
+                    android:fontFamily="@font/sf_medium"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    app:cornerRadius="@dimen/_100sdp"
+                    app:elevation="@dimen/_4sdp"
+                    android:elevation="@dimen/_4sdp"/>
+
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_border"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_below="@id/compose_appBarLayout"
+        android:orientation="horizontal"
+        android:background="@color/accent_grey"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_border"
+        android:layout_above="@id/layout_border2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_8sdp"
+                android:backgroundTint="@android:color/transparent"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/compose_ivProfile"
+                    android:layout_width="@dimen/_38sdp"
+                    android:layout_height="@dimen/_38sdp"
+                    android:src="@drawable/user"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/compose_etContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:hint="@string/what_s_happening"
+                    android:textSize="@dimen/_15ssp"
+                    android:gravity="top"
+                    android:backgroundTint="@android:color/transparent"
+                    android:fontFamily="@font/roboto_regular"
+                    android:autoLink="all"
+                    android:linksClickable="true"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:padding="@dimen/_8sdp">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/compose_imageAdded"
+                    android:layout_width="@dimen/_255sdp"
+                    android:layout_height="@dimen/_135sdp"
+                    android:background="@android:color/transparent"
+                    app:riv_corner_radius="@dimen/_8sdp"
+                    app:riv_border_color="@color/accent_grey"
+                    app:riv_border_width="0.1dp"
+                    android:src="@drawable/sample"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/layout_border2"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_above="@id/compose_appBarLayout2"
+        android:orientation="horizontal"
+        android:background="@color/accent_grey"/>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/compose_appBarLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/colorBarBackground2"
+        android:elevation="@dimen/_4sdp"
+        app:elevation="@dimen/_4sdp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            app:contentInsetStart="0dp"
+            app:contentInsetEnd="0dp"
+            android:backgroundTint="@color/colorBarBackground2">
+
+            <RelativeLayout
+                android:id="@+id/layout_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp">
+
+                <ImageView
+                    android:id="@+id/compose_ivGallery"
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:src="@drawable/ic_gallery"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    tools:ignore="UnusedAttribute" />
+
+                <com.wafflecopter.charcounttextview.CharCountTextView
+                    android:id="@+id/compose_tvCounter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/_300"
+                    android:textSize="@dimen/_10ssp"
+                    android:fontFamily="@font/sf_medium"
+                    android:includeFontPadding="false"
+                    app:maxCharacters="300"
+                    app:exceededTextColor="@color/accent_red"
+                    tools:ignore="RelativeOverlap" />
+
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+</RelativeLayout>

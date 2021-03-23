@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.ProfileFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/profile_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:elevation="@dimen/_4sdp"
+        app:elevation="@dimen/_4sdp"
+        android:backgroundTint="@color/accent_grey">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/profileToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="0.1dp"
+            app:contentInsetEnd="@dimen/_14sdp"
+            android:background="@color/colorBarBackground2">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/profile_tvUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dots"
+                    android:textSize="@dimen/_16ssp"
+                    android:textColor="@color/colorText1"
+                    android:maxLines="1"
+                    android:maxWidth="@dimen/_200sdp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="start"
+                    android:includeFontPadding="false"
+                    tools:ignore="RelativeOverlap" />
+
+                <ImageView
+                    android:id="@+id/profile_btnMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_menu"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    tools:ignore="UnusedAttribute"
+                    android:contentDescription="@string/app_name"
+                    app:tint="@color/accent_blue" />
+
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorDefaultBackground3"
+        android:layout_below="@id/profile_appBarLayout">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/layout_bar1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/_10sdp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_ivProfileImage"
+                    android:layout_width="@dimen/_58sdp"
+                    android:layout_height="@dimen/_58sdp"
+                    android:src="@drawable/user"
+                    android:layout_gravity="center"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_24sdp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:weightSum="3"
+                        tools:ignore="UselessParent">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/profile_tvPosts"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/_0"
+                                android:textSize="@dimen/_13ssp"
+                                android:textColor="@color/colorText1"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/roboto_regular"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/posts"
+                                android:textSize="@dimen/_12ssp"
+                                android:textColor="@color/colorText1"
+                                android:gravity="bottom"
+                                android:fontFamily="@font/roboto_regular"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginStart="@dimen/_14sdp"
+                            android:layout_marginEnd="@dimen/_14sdp"
+                            android:gravity="center"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/profile_tvFollowers"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/_0"
+                                android:textSize="@dimen/_13ssp"
+                                android:textColor="@color/colorText1"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/roboto_regular"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                tools:ignore="UnusedAttribute" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/followers"
+                                android:textSize="@dimen/_12ssp"
+                                android:textColor="@color/colorText1"
+                                android:gravity="bottom"
+                                android:fontFamily="@font/roboto_regular"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/profile_tvFollowings"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/_0"
+                                android:textSize="@dimen/_13ssp"
+                                android:textColor="@color/colorText1"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/roboto_regular"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                tools:ignore="UnusedAttribute" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/following"
+                                android:textSize="@dimen/_12ssp"
+                                android:textColor="@color/colorText1"
+                                android:gravity="bottom"
+                                android:fontFamily="@font/roboto_regular"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/profile_tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_bar1"
+                android:text=""
+                android:textSize="@dimen/_13ssp"
+                android:textColor="@color/colorText1"
+                android:textStyle="bold"
+                android:gravity="start"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/profile_tvBio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profile_tvName"
+                android:text=""
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@color/colorText6"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="start"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:maxLines="3"
+                android:ellipsize="end"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/profile_btnEditProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_below="@id/profile_tvBio"
+                android:backgroundTint="@color/colorDefaultBackground3"
+                app:strokeColor="@color/accent_grey"
+                app:strokeWidth="1dp"
+                app:cornerRadius="@dimen/_5sdp"
+                android:text="@string/edit_profile"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@color/accent_grey"
+                android:fontFamily="@font/sf_medium"
+                android:textAllCaps="false"/>
+
+            <LinearLayout
+                android:id="@+id/layout_border"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_below="@id/profile_btnEditProfile"
+                android:orientation="horizontal"
+                android:background="@color/accent_grey"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/profile_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/layout_border"
+                android:nestedScrollingEnabled="false"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

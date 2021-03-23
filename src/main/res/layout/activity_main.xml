@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDefaultBackground2"
+    tools:context=".Activities.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/main_fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_appBarLayout"
+        android:background="@color/colorDefaultBackground2"/>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/bottom_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:elevation="0dp"
+        app:elevation="0dp"
+        android:backgroundTint="@color/accent_grey">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?android:attr/windowBackground"
+            app:backgroundTint="@color/colorBottomNavBar"
+            android:layout_marginTop="0.1dp"
+            app:itemIconTint="@color/selector"
+            app:itemIconSize="@dimen/_15sdp"
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/bottom_navigation_menu"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/accent_blue"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/bottom_appBarLayout"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_24sdp"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        android:src="@drawable/ic_compose"
+        android:contentDescription="@string/app_name"
+        android:elevation="@dimen/_4sdp"
+        app:elevation="@dimen/_4sdp"
+        app:maxImageSize="@dimen/_20sdp"
+        app:tint="@android:color/white"/>
+
+</RelativeLayout>

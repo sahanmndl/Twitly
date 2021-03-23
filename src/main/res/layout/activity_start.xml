@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDefaultBackground3"
+    tools:context=".Activities.StartActivity">
+
+    <ImageView
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:src="@drawable/vector_logo_blue"
+        android:contentDescription="@string/app_name" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/start_banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:text="@string/banner"
+            android:textSize="@dimen/_24ssp"
+            android:fontFamily="@font/sf_medium"
+            android:includeFontPadding="false"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/start_btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_24sdp"
+            android:layout_marginRight="@dimen/_24sdp"
+            android:backgroundTint="@color/accent_blue"
+            android:gravity="center"
+            android:text="@string/create_a_new_account"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="@dimen/_12ssp"
+            android:fontFamily="@font/sf_medium"
+            android:includeFontPadding="false"
+            app:elevation="@dimen/_8sdp"
+            app:cornerRadius="@dimen/_70sdp"
+            tools:targetApi="lollipop" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/start_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:text="@string/have_an_account_already"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/accent_grey"
+        android:fontFamily="@font/sf_medium"
+        android:includeFontPadding="false"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/start_btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/start_text1"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:text="@string/log_in"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/dark_blue"
+        android:fontFamily="@font/sf_medium"
+        android:includeFontPadding="false"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        tools:ignore="UnusedAttribute" />
+
+</RelativeLayout>

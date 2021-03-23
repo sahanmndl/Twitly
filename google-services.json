@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "237131665105",
+    "project_id": "twitly-app",
+    "storage_bucket": "twitly-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237131665105:android:22c402dd0db5b7736d3ff0",
+        "android_client_info": {
+          "package_name": "com.applin.twitly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237131665105-d4amst27la13mnc6vmhmfkjfcm7vtd6i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvzGkPgDX32rMz72-U5RmXvqX4HYkDJSo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237131665105-d4amst27la13mnc6vmhmfkjfcm7vtd6i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

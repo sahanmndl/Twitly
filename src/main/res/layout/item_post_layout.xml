@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/accent_grey">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorDefaultBackground3"
+        android:orientation="horizontal"
+        android:layout_marginBottom="0.1dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        tools:ignore="UnusedAttribute">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/post_profileImg"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_9sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:src="@drawable/user"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/_8sdp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="2.5dp">
+
+                <TextView
+                    android:id="@+id/post_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Elon Musk"
+                    android:textColor="@color/colorText6"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_13ssp"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:maxWidth="@dimen/_120sdp"
+                    android:ellipsize="end"
+                    android:layout_alignParentStart="true"
+                    android:includeFontPadding="false"/>
+
+                <TextView
+                    android:id="@+id/post_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_centerVertical="true"
+                    android:text="Aelonmusk"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="@dimen/_13ssp"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:maxWidth="@dimen/_55sdp"
+                    android:ellipsize="end"
+                    android:layout_toEndOf="@id/post_name"
+                    android:includeFontPadding="false"/>
+
+                <TextView
+                    android:id="@+id/dotSep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_2sdp"
+                    android:layout_centerVertical="true"
+                    android:text="@string/big_dot"
+                    android:textAlignment="center"
+                    android:includeFontPadding="false"
+                    android:textSize="@dimen/_14ssp"
+                    android:textColor="@color/accent_grey"
+                    android:layout_toEndOf="@id/post_username"/>
+
+                <TextView
+                    android:id="@+id/post_timing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="bottom"
+                    android:text="5:27 PM, 22.03.21"
+                    android:textColor="@color/accent_grey"
+                    android:textSize="@dimen/_12ssp"
+                    android:maxLines="1"
+                    android:maxWidth="@dimen/_120sdp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_regular"
+                    android:layout_toEndOf="@id/dotSep"
+                    android:layout_toStartOf="@id/post_btnPopUp"/>
+
+                <ImageView
+                    android:id="@+id/post_btnPopUp"
+                    android:layout_width="@dimen/_11sdp"
+                    android:layout_height="@dimen/_11sdp"
+                    android:src="@drawable/ic_more"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:contentDescription="@string/app_name"
+                    app:tint="@color/colorPopUpButton"
+                    android:visibility="visible"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/post_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2.5dp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:fontFamily="@font/roboto_regular"
+                android:text=""
+                android:textColor="@color/colorText6"
+                android:textSize="@dimen/_13ssp"
+                android:gravity="start"
+                android:autoLink="all"
+                android:linksClickable="true"/>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/post_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_140sdp"
+                android:background="@android:color/transparent"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                app:riv_corner_radius="@dimen/_8sdp"
+                android:src="@drawable/sample"
+                android:scaleType="centerCrop"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:paddingLeft="@dimen/_3sdp"
+                android:paddingRight="@dimen/_3sdp"
+                android:weightSum="3"
+                android:gravity="center"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:id="@+id/post_btnComment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_comment"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        tools:ignore="UnusedAttribute"
+                        android:contentDescription="@string/app_name" />
+
+                    <TextView
+                        android:id="@+id/post_txtComment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:text="@string/_0"
+                        android:textSize="@dimen/_10ssp"
+                        android:textColor="@color/accent_grey"
+                        android:maxLines="1"
+                        android:maxWidth="@dimen/_20sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/roboto_regular"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:id="@+id/post_btnLike"
+                        android:layout_width="@dimen/_13sdp"
+                        android:layout_height="@dimen/_13sdp"
+                        android:src="@drawable/ic_like"
+                        android:layout_gravity="center_vertical"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        tools:ignore="UnusedAttribute"
+                        android:contentDescription="@string/app_name"/>
+
+                    <TextView
+                        android:id="@+id/post_txtLike"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:text="@string/_0"
+                        android:textSize="@dimen/_10ssp"
+                        android:textColor="@color/accent_grey"
+                        android:maxLines="1"
+                        android:maxWidth="@dimen/_20sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/roboto_regular"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/post_btnBookmark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_bookmark"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        tools:ignore="UnusedAttribute"
+                        android:contentDescription="@string/app_name" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

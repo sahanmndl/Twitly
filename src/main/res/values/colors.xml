@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="accent_blue">#FF0095F6</color>
+    <color name="accent_dark">#FF282828</color>
+    <color name="accent_whitish">#FFFAFAFA</color>
+    <color name="accent_blackish">#FF14171A</color>
+    <color name="accent_grey">#FF7A8188</color>
+    <color name="accent_red">#FFE0245E</color>
+    <color name="accent_white">#FFD4D4D4</color>
+
+    <color name="background_brown">#FF403A29</color>
+    <color name="background_indigo">#FF232934</color>
+    <color name="background_red">#FF401814</color>
+    <color name="background_grey">#FF403D3D</color>
+    <color name="background_blue">#FF262F40</color>
+    <color name="background_violet">#FF333140</color>
+
+    <color name="royal_blue">#FF405DE6</color>
+    <color name="dark_blue">#FF0081D5</color>
+    <color name="light_blue">#FF1DA1F2</color>
+    <color name="extra_light_blue">#FFABDEFF</color>
+    <color name="purple">#FF8134AF</color>
+    <color name="red">#FFFD1D1D</color>
+    <color name="pink">#FFDD2A7B</color>
+    <color name="yellow">#FFFEDA77</color>
+    <color name="orange">#FFF58529</color>
+    <color name="light_gray">#FFAAB8C2</color>
+    <color name="bluish_grey">#FF657786</color>
+    <color name="extra_light_gray">#FFE1E8ED</color>
+    <color name="dark_gray">#FFAAB8C2</color>
+    <color name="black2">#FF121212</color>
+
+    <color name="transparent">#00000000</color>
+</resources>
