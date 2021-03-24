@@ -1,7 +1,9 @@
 package com.applin.twitly.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +38,7 @@ import java.util.Objects;
 public class CommentsActivity extends AppCompatActivity {
 
     private TextInputEditText etComment;
-    private TextView btnShare;
+    private TextView btnShare, tvNotice;
     private CharCountTextView tvCounter;
     private RecyclerView recyclerView;
 
@@ -57,6 +59,7 @@ public class CommentsActivity extends AppCompatActivity {
         etComment = findViewById(R.id.comments_etComment);
         btnShare = findViewById(R.id.comments_tvShare);
         tvCounter = findViewById(R.id.comments_tvCharCounter);
+        tvNotice = findViewById(R.id.comments_tvNotice);
         recyclerView = findViewById(R.id.comments_recyclerView);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -73,6 +76,7 @@ public class CommentsActivity extends AppCompatActivity {
 
         btnShare.setOnClickListener(v -> shareComment());
 
+        maxCommentsReached();
         displayComments();
         charCounter();
     }
@@ -119,6 +123,32 @@ public class CommentsActivity extends AppCompatActivity {
                 }
                 commentAdapter.notifyDataSetChanged();
                 recyclerView.setAdapter(commentAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void maxCommentsReached() {
+        DatabaseReference commentsRef = FirebaseDatabase.getInstance().getReference("Comments").child(postid);
+        commentsRef.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getChildrenCount() == 15) {
+                    etComment.setVisibility(View.GONE);
+                    btnShare.setVisibility(View.GONE);
+                    tvCounter.setVisibility(View.GONE);
+                    tvNotice.setVisibility(View.VISIBLE);
+                } else {
+                    etComment.setVisibility(View.VISIBLE);
+                    btnShare.setVisibility(View.VISIBLE);
+                    tvCounter.setVisibility(View.VISIBLE);
+                    tvNotice.setVisibility(View.GONE);
+                }
             }
 
             @Override

@@ -139,6 +139,16 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     tools:ignore="UnusedAttribute" />
 
+                <TextView
+                    android:id="@+id/comments_tvNotice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/maximum_comments_reached"
+                    android:textSize="@dimen/_13ssp"
+                    android:textColor="@color/accent_blue"
+                    android:visibility="visible"/>
+
             </RelativeLayout>
 
         </com.google.android.material.appbar.MaterialToolbar>

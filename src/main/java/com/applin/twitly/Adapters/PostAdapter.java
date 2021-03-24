@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.applin.twitly.Activities.CommentsActivity;
 import com.applin.twitly.Activities.ImageViewActivity;
 import com.applin.twitly.Activities.OthersProfileActivity;
+import com.applin.twitly.Activities.PostViewActivity;
 import com.applin.twitly.Entities.Post;
 import com.applin.twitly.Entities.User;
 import com.applin.twitly.R;
@@ -75,6 +76,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.ivPostedImg.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, ImageViewActivity.class);
             intent.putExtra("EXTRA_IMAGE", post.getPostimage());
+            mContext.startActivity(intent);
+        });
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, PostViewActivity.class);
+            intent.putExtra("POST_ID", post.getPostid());
+            intent.putExtra("USER_ID", post.getPublisher());
             mContext.startActivity(intent);
         });
 

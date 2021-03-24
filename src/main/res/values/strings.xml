@@ -41,14 +41,17 @@
     <string name="follow">Follow</string>
     <string name="search_twitly">Search Twitly</string>
     <string name="comments">Comments</string>
-    <string name="comment_here">Comment here...</string>
+    <string name="comment_here">Comment here…</string>
     <string name="reply">Reply</string>
     <string name="_100">100</string>
-    <string name="comment">Comment...</string>
+    <string name="comment">Comment…</string>
     <string name="share">Share</string>
     <string name="logout">Logout</string>
     <string name="settings">Settings</string>
     <string name="bookmarks">Bookmarks</string>
     <string name="delete">Delete</string>
     <string name="remove_profile_picture">Remove Profile Picture</string>
+    <string name="post_2">Post</string>
+    <string name="likes">Likes</string>
+    <string name="maximum_comments_reached">Maximum comments reached!</string>
 </resources>
