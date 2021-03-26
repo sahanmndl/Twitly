@@ -93,6 +93,27 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/settings_themeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/_10sdp"
+                android:gravity="center_vertical"
+                android:foreground="?android:attr/selectableItemBackground"
+                tools:ignore="UnusedAttribute,UseCompoundDrawables">
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/settings_themeSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Enable Dark Mode"
+                    android:textSize="@dimen/_13ssp"
+                    android:textColor="@color/colorText7"
+                    android:gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/settings_logoutLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

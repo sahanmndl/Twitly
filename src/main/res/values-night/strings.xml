@@ -50,4 +50,5 @@
     <string name="likes">Likes</string>
     <string name="comments">Comments</string>
     <string name="maximum_comments_reached">Maximum comments reached!</string>
+    <string name="remove">Remove</string>
 </resources>

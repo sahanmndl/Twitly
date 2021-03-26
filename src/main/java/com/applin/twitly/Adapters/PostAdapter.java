@@ -1,6 +1,7 @@
 package com.applin.twitly.Adapters;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +30,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -55,7 +59,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         Post post = mPost.get(position);
 
-        holder.tvContent.setText(post.getPostcontent());
+        if (post.getPostcontent().equals("")) {
+            holder.tvContent.setVisibility(View.GONE);
+        } else {
+            holder.tvContent.setVisibility(View.VISIBLE);
+            holder.tvContent.setText(post.getPostcontent());
+        }
+
         holder.tvTimestamp.setText(post.getTimestamp());
 
         if (post.getPostimage() == null) {
@@ -119,14 +129,36 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 popupMenu.setOnMenuItemClickListener(item -> {
                     switch (item.getItemId()) {
                         case R.id.popup_btnDelete:
-                            FirebaseDatabase.getInstance().getReference("Posts")
-                                    .child(post.getPostid()).removeValue();
-                            FirebaseDatabase.getInstance().getReference("Comments")
-                                    .child(post.getPostid()).removeValue();
-                            FirebaseDatabase.getInstance().getReference("Likes")
-                                    .child(post.getPostid()).removeValue();
-                            FirebaseDatabase.getInstance().getReference("Bookmarks")
-                                    .child(post.getPostid()).removeValue();
+                            AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+                            alertDialog.setTitle("Do you want to delete this post?");
+
+                            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                                    (dialog, which) -> dialog.dismiss());
+
+                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+                                    (dialog, which) -> {
+                                        FirebaseDatabase.getInstance().getReference("Posts")
+                                                .child(post.getPostid()).removeValue();
+                                        FirebaseDatabase.getInstance().getReference("Comments")
+                                                .child(post.getPostid()).removeValue();
+                                        FirebaseDatabase.getInstance().getReference("Likes")
+                                                .child(post.getPostid()).removeValue();
+                                        FirebaseDatabase.getInstance().getReference("Bookmarks")
+                                                .child(post.getPostid()).removeValue();
+
+                                        String url = post.getPostimage();
+                                        if (url != null) {
+                                            StorageReference imagesRef = FirebaseStorage.getInstance().getReferenceFromUrl(url);
+                                            imagesRef.delete().addOnSuccessListener(aVoid -> Toast.makeText(mContext, "Post deleted!", Toast.LENGTH_SHORT).show())
+                                                    .addOnFailureListener(e -> Toast.makeText(mContext, "ERROR: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                                        } else {
+                                            Toast.makeText(mContext, "Deleted!", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        dialog.dismiss();
+                                    });
+
+                            alertDialog.show();
 
                             return true;
 

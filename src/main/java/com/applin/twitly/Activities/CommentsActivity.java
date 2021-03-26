@@ -82,13 +82,13 @@ public class CommentsActivity extends AppCompatActivity {
     }
 
     private void shareComment() {
-        if (Objects.requireNonNull(etComment.getText()).toString().equals("")) {
+        if (Objects.requireNonNull(etComment.getText()).toString().trim().equals("")) {
             Toast.makeText(this, "You can't share an empty comment", Toast.LENGTH_SHORT).show();
         } else {
             DatabaseReference commentsRef = FirebaseDatabase.getInstance().getReference("Comments").child(postid);
 
             String strCommentId = commentsRef.push().getKey();
-            String strComment = etComment.getText().toString();
+            String strComment = etComment.getText().toString().trim();
             String strPublisher = currentUser.getUid();
 
             HashMap<String, Object> hashMap = new HashMap<>();

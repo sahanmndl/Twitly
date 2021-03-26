@@ -61,6 +61,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private Uri imageUri;
     private String downloadUrl = "";
+    private String str_iniUsername;
     private String str_editName, str_editUsername, str_editBio;
     private ProgressDialog progressDialog;
 
@@ -112,16 +113,19 @@ public class EditProfileActivity extends AppCompatActivity {
                 etUsername.setText(user.getUsername());
                 etBio.setText(user.getBio());
 
+                str_iniUsername = user.getUsername();
+
                 if (user.getImage().equals("default")) {
                     ivProfileImg.setImageResource(R.drawable.user);
-                    tvRemovePic.setVisibility(View.GONE);
+                    //tvRemovePic.setVisibility(View.GONE);
                 } else {
                     if (getApplicationContext() == null) {
                         return;
                     }
                     Glide.with(getApplicationContext()).load(user.getImage()).into(ivProfileImg);
 
-                    tvRemovePic.setVisibility(View.VISIBLE);
+                    //tvRemovePic.setVisibility(View.VISIBLE);
+                    //tvRemovePic.setOnClickListener(v -> removeProfilePic());
                 }
             }
 
@@ -140,16 +144,16 @@ public class EditProfileActivity extends AppCompatActivity {
         progressDialog.show();
 
         btnSave.setEnabled(false);
-        str_editName = Objects.requireNonNull(etName.getText()).toString();
-        str_editUsername = Objects.requireNonNull(etUsername.getText()).toString();
-        str_editBio = Objects.requireNonNull(etBio.getText()).toString();
+        str_editName = Objects.requireNonNull(etName.getText()).toString().trim();
+        str_editUsername = Objects.requireNonNull(etUsername.getText()).toString().trim();
+        str_editBio = Objects.requireNonNull(etBio.getText()).toString().trim();
 
         Query checkUsername = FirebaseDatabase.getInstance().getReference("Users")
                 .orderByChild("username").equalTo(str_editUsername);
         checkUsername.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
+                if (snapshot.exists() && !str_editUsername.equals(str_iniUsername)) {
                     progressDialog.dismiss();
                     btnSave.setEnabled(true);
                     etUsername.setError("Username not available");
@@ -288,13 +292,20 @@ public class EditProfileActivity extends AppCompatActivity {
                 User user = snapshot.getValue(User.class);
                 assert user != null;
                 if (!user.getImage().equals("default")) {
+                    String url = user.getImage();
+                    if (url != null) {
+                        StorageReference profilePicsRef = FirebaseStorage.getInstance().getReferenceFromUrl(url);
+                        profilePicsRef.delete()
+                                .addOnSuccessListener(aVoid -> Toast.makeText(EditProfileActivity.this, "Post deleted!", Toast.LENGTH_SHORT).show())
+                                .addOnFailureListener(e -> Toast.makeText(EditProfileActivity.this, "ERROR: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                    }
+
                     HashMap<String, Object> hashMap = new HashMap<>();
                     hashMap.put("image", "default");
                     reference.updateChildren(hashMap)
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(EditProfileActivity.this, "Profile Image Removed!", Toast.LENGTH_SHORT).show();
-                                    ivProfileImg.setImageResource(R.drawable.user);
                                     tvRemovePic.setVisibility(View.GONE);
                                 } else {
                                     FirebaseAuthException exception = (FirebaseAuthException) task.getException();

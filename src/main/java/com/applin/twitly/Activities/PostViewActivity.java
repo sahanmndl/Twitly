@@ -6,12 +6,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.applin.twitly.Adapters.CommentAdapter;
 import com.applin.twitly.Entities.Comment;
@@ -20,11 +23,15 @@ import com.applin.twitly.Entities.User;
 import com.applin.twitly.R;
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
@@ -46,6 +53,8 @@ public class PostViewActivity extends AppCompatActivity {
     private Post post;
     private CommentAdapter commentAdapter;
     private List<Comment> commentList;
+
+    private FirebaseUser currentUser;
 
     private String postId, userId;
 
@@ -74,6 +83,8 @@ public class PostViewActivity extends AppCompatActivity {
         commentList = new ArrayList<>();
         commentAdapter = new CommentAdapter(this, commentList);
 
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
         Intent intent = getIntent();
         postId = intent.getStringExtra("POST_ID");
         userId = intent.getStringExtra("USER_ID");
@@ -91,6 +102,7 @@ public class PostViewActivity extends AppCompatActivity {
         displayPost();
         displayLikesAndCommentsCount();
         displayComments();
+        setUpPopUpMenu();
 
         progressDialog.dismiss();
     }
@@ -125,8 +137,16 @@ public class PostViewActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 post = snapshot.getValue(Post.class);
-                assert post != null;
-                tvContent.setText(post.getPostcontent());
+                if (post == null) {
+                    return;
+                }
+                if (post.getPostcontent().equals("")) {
+                    tvContent.setVisibility(View.GONE);
+                } else {
+                    tvContent.setVisibility(View.VISIBLE);
+                    tvContent.setText(post.getPostcontent());
+                }
+
                 tvTimestamp.setText(post.getTimestamp());
                 if (post.getPostimage() == null) {
                     ivPostImage.setVisibility(View.GONE);
@@ -201,6 +221,60 @@ public class PostViewActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void setUpPopUpMenu() {
+        if (userId.equals(currentUser.getUid())) {
+            btnPopUp.setVisibility(View.VISIBLE);
+            btnPopUp.setOnClickListener(v -> {
+                PopupMenu popupMenu = new PopupMenu(this, v);
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    switch (item.getItemId()) {
+                        case R.id.popup_btnDelete:
+                            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                            alertDialog.setTitle("Do you want to delete this post?");
+
+                            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                                    (dialog, which) -> dialog.dismiss());
+
+                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+                                    (dialog, which) -> {
+                                        FirebaseDatabase.getInstance().getReference("Posts")
+                                                .child(post.getPostid()).removeValue();
+                                        FirebaseDatabase.getInstance().getReference("Comments")
+                                                .child(post.getPostid()).removeValue();
+                                        FirebaseDatabase.getInstance().getReference("Likes")
+                                                .child(post.getPostid()).removeValue();
+                                        FirebaseDatabase.getInstance().getReference("Bookmarks")
+                                                .child(post.getPostid()).removeValue();
+
+                                        String url = post.getPostimage();
+                                        if (url != null) {
+                                            StorageReference imagesRef = FirebaseStorage.getInstance().getReferenceFromUrl(url);
+                                            imagesRef.delete().addOnSuccessListener(aVoid -> Toast.makeText(PostViewActivity.this, "Post deleted!", Toast.LENGTH_SHORT).show())
+                                                    .addOnFailureListener(e -> Toast.makeText(PostViewActivity.this, "ERROR: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                                        } else {
+                                            Toast.makeText(PostViewActivity.this, "Deleted!", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        dialog.dismiss();
+                                        finish();
+                                    });
+
+                            alertDialog.show();
+
+                            return true;
+
+                        default:
+                            return false;
+                    }
+                });
+                popupMenu.inflate(R.menu.itemview_popup_menu);
+                popupMenu.show();
+            });
+        } else {
+            btnPopUp.setVisibility(View.GONE);
+        }
     }
 
     private void setToolbar() {

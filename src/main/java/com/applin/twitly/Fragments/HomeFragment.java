@@ -34,6 +34,7 @@ public class HomeFragment extends Fragment {
 
     private List<Post> postList;
     private List<String> followingList;
+    private Post post;
 
     private ProgressDialog progressDialog;
 
@@ -98,7 +99,7 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 postList.clear();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                    Post post = snapshot1.getValue(Post.class);
+                    post = snapshot1.getValue(Post.class);
 
                     assert post != null;
                     if (post.getPublisher().equals(currentUser.getUid())) {
@@ -121,4 +122,22 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+    /**private String getTimestampDifference() {
+        String timeDiff = "";
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("h:mm a, dd.MM.yy", Locale.getDefault());
+        Date today = c.getTime();
+        sdf.format(today);
+        Date timestamp;
+        String postTimestamp = post.getTimestamp();
+        try {
+            timestamp = sdf.parse(postTimestamp);
+            timeDiff = String.valueOf(Math.round(((today.getTime() - timestamp.getTime()) / 1000 / 60 / 60 / 24 )));
+        } catch (ParseException e) {
+            Log.e(TAG, "getTimestampDifference : ParseException : " + e.getMessage());
+            timeDiff = "0";
+        }
+        return timeDiff;
+    }*/
 }

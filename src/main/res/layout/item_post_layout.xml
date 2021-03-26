@@ -129,7 +129,8 @@
                 android:textSize="@dimen/_13ssp"
                 android:gravity="start"
                 android:autoLink="all"
-                android:linksClickable="true"/>
+                android:linksClickable="true"
+                android:visibility="gone"/>
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/post_image"

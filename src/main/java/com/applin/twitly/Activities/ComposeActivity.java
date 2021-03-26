@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -56,6 +57,7 @@ public class ComposeActivity extends AppCompatActivity {
     private RoundedImageView ivImageAdded;
     private TextInputEditText etContent;
     private CharCountTextView tvCounter;
+    private TextView tvRemove;
 
     private Uri imageUri;
     private String downloadUrl = "";
@@ -81,6 +83,7 @@ public class ComposeActivity extends AppCompatActivity {
         ImageView ivGallery = findViewById(R.id.compose_ivGallery);
         etContent = findViewById(R.id.compose_etContent);
         tvCounter = findViewById(R.id.compose_tvCounter);
+        tvRemove = findViewById(R.id.compose_tvRemove);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         assert currentUser != null;
@@ -109,7 +112,11 @@ public class ComposeActivity extends AppCompatActivity {
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
-        if (imageUri != null) {
+        if (imageUri == null && Objects.requireNonNull(etContent.getText()).toString().trim().equals("")) {
+            Toast.makeText(this, "Empty!", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+
+        } else if (imageUri != null) {
             File imageSize = new File(imageUri.getPath());
 
             try {
@@ -139,7 +146,7 @@ public class ComposeActivity extends AppCompatActivity {
                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Posts");
 
                         String postid = databaseReference.push().getKey();
-                        String postcontent = Objects.requireNonNull(etContent.getText()).toString();
+                        String postcontent = Objects.requireNonNull(etContent.getText()).toString().trim();
                         String publisher = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
                         HashMap<String, Object> hashMap = new HashMap<>();
@@ -177,7 +184,7 @@ public class ComposeActivity extends AppCompatActivity {
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
 
             String postid = reference.push().getKey();
-            String postcontent = Objects.requireNonNull(etContent.getText()).toString();
+            String postcontent = Objects.requireNonNull(etContent.getText()).toString().trim();
             String publisher = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
             HashMap<String, Object> hashMap = new HashMap<>();
@@ -243,12 +250,18 @@ public class ComposeActivity extends AppCompatActivity {
             assert result != null;
             imageUri = result.getUri();
             ivImageAdded.setVisibility(View.VISIBLE);
+            tvRemove.setVisibility(View.VISIBLE);
             ivImageAdded.setImageURI(imageUri);
+
+            tvRemove.setOnClickListener(v -> {
+                imageUri = null;
+                ivImageAdded.setVisibility(View.GONE);
+                tvRemove.setVisibility(View.GONE);
+            });
 
         } else {
             ivImageAdded.setVisibility(View.GONE);
-            startActivity(new Intent(ComposeActivity.this, MainActivity.class));
-            finish();
+            tvRemove.setVisibility(View.GONE);
         }
     }
 }

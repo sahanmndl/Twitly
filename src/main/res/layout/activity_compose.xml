@@ -102,7 +102,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:gravity="end"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:padding="@dimen/_8sdp">
@@ -117,6 +117,20 @@
                     app:riv_border_width="0.1dp"
                     android:src="@drawable/sample"
                     android:scaleType="centerCrop"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/compose_tvRemove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:text="@string/remove"
+                    android:textSize="@dimen/_11ssp"
+                    android:textColor="@color/red"
+                    android:fontFamily="@font/sf_medium"
+                    android:includeFontPadding="false"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    tools:ignore="UnusedAttribute"
                     android:visibility="gone"/>
 
             </LinearLayout>
