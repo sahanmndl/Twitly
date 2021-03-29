@@ -123,6 +123,8 @@ public class HomeFragment extends Fragment {
         });
     }
 
+
+
     /**private String getTimestampDifference() {
         String timeDiff = "";
         Calendar c = Calendar.getInstance();

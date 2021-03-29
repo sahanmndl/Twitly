@@ -7,13 +7,17 @@ public class Post {
     private String postimage;
     private String publisher;
     private String timestamp;
+    private String postdate;
+    private String postquery;
 
-    public Post(String postid, String postcontent, String postimage, String publisher, String timestamp) {
+    public Post(String postid, String postcontent, String postimage, String publisher, String timestamp, String postdate, String postquery) {
         this.postid = postid;
         this.postcontent = postcontent;
         this.postimage = postimage;
         this.publisher = publisher;
         this.timestamp = timestamp;
+        this.postdate = postdate;
+        this.postquery = postquery;
     }
 
     public Post() {
@@ -57,5 +61,21 @@ public class Post {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getPostdate() {
+        return postdate;
+    }
+
+    public void setPostdate(String postdate) {
+        this.postdate = postdate;
+    }
+
+    public String getPostquery() {
+        return postquery;
+    }
+
+    public void setPostquery(String postquery) {
+        this.postquery = postquery;
     }
 }

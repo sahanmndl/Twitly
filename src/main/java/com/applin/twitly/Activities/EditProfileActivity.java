@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -117,14 +118,14 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 if (user.getImage().equals("default")) {
                     ivProfileImg.setImageResource(R.drawable.user);
-                    //tvRemovePic.setVisibility(View.GONE);
+                    tvRemovePic.setVisibility(View.GONE);
                 } else {
                     if (getApplicationContext() == null) {
                         return;
                     }
                     Glide.with(getApplicationContext()).load(user.getImage()).into(ivProfileImg);
 
-                    //tvRemovePic.setVisibility(View.VISIBLE);
+                    tvRemovePic.setVisibility(View.VISIBLE);
                     //tvRemovePic.setOnClickListener(v -> removeProfilePic());
                 }
             }
@@ -286,7 +287,8 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     /**private void removeProfilePic() {
-        reference.addValueEventListener(new ValueEventListener() {
+        ivProfileImg.setImageResource(R.drawable.user);
+        btnSave.setOnClickListener(v -> reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
@@ -320,7 +322,7 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        }));
     }*/
 
     private void setUpToolbar() {
