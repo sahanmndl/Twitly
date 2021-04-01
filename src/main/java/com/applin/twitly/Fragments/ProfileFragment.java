@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.applin.twitly.Activities.EditProfileActivity;
+import com.applin.twitly.Activities.FollowsListActivity;
 import com.applin.twitly.Activities.SettingsActivity;
 import com.applin.twitly.Adapters.PostAdapter;
 import com.applin.twitly.Entities.Post;
@@ -65,6 +67,8 @@ public class ProfileFragment extends Fragment {
         tvBio = view.findViewById(R.id.profile_tvBio);
         ImageView btnMenu = view.findViewById(R.id.profile_btnMenu);
         RecyclerView recyclerView = view.findViewById(R.id.profile_recyclerView);
+        LinearLayout llFollowers = view.findViewById(R.id.profile_llFollowers);
+        LinearLayout llFollowing = view.findViewById(R.id.profile_llFollowing);
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -78,13 +82,25 @@ public class ProfileFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(postAdapter);
 
-        /**tvFollowers.setOnClickListener(v -> {
+        llFollowers.setOnClickListener(v -> {
             if (getActivity() == null) {
                 return;
             }
-            Intent intent = new Intent(getActivity(), FollowersListActivity.class);
-            startActivity(intent);
-        });*/
+            Intent intent1 = new Intent(getActivity(), FollowsListActivity.class);
+            intent1.putExtra("USER_ID_FOLLOWS", currentUser.getUid());
+            intent1.putExtra("TITLE", "Followers");
+            startActivity(intent1);
+        });
+
+        llFollowing.setOnClickListener(v -> {
+            if (getActivity() == null) {
+                return;
+            }
+            Intent intent2 = new Intent(getActivity(), FollowsListActivity.class);
+            intent2.putExtra("USER_ID_FOLLOWS", currentUser.getUid());
+            intent2.putExtra("TITLE", "Following");
+            startActivity(intent2);
+        });
 
         btnMenu.setOnClickListener(v -> startActivity(new Intent(getActivity(), SettingsActivity.class)));
 

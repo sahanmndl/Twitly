@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,19 +76,26 @@ public class PostViewActivity extends AppCompatActivity {
         ivPostImage = findViewById(R.id.postView_image);
         btnPopUp = findViewById(R.id.postView_btnPopUp);
         recyclerView = findViewById(R.id.postView_recyclerView);
+        LinearLayout linearLayout = findViewById(R.id.ll1);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
 
         commentList = new ArrayList<>();
-        commentAdapter = new CommentAdapter(this, commentList);
+        commentAdapter = new CommentAdapter(this, commentList, postId);
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Intent intent = getIntent();
         postId = intent.getStringExtra("POST_ID");
         userId = intent.getStringExtra("USER_ID");
+        
+        linearLayout.setOnClickListener(v -> {
+            Intent intent1 = new Intent(PostViewActivity.this, LikedByActivity.class);
+            intent1.putExtra("POST_ID_LIKED_BY", postId);
+            startActivity(intent1);
+        });
 
         progressDialog = new ProgressDialog(this, R.style.DialogTheme);
         progressDialog.setCanceledOnTouchOutside(false);

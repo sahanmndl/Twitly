@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,7 +48,7 @@ public class OthersProfileActivity extends AppCompatActivity {
 
     private FirebaseUser currentUser;
 
-    String id;
+    String userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,8 @@ public class OthersProfileActivity extends AppCompatActivity {
         tvBio = findViewById(R.id.othersProfile_tvBio);
         btnFollow = findViewById(R.id.othersProfile_btnFollow);
         RecyclerView recyclerView = findViewById(R.id.othersProfile_recyclerView);
+        LinearLayout llFollowers = findViewById(R.id.othersProfile_llFollowers);
+        LinearLayout llFollowing = findViewById(R.id.othersProfile_llFollowing);
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -84,7 +87,21 @@ public class OthersProfileActivity extends AppCompatActivity {
         recyclerView.setAdapter(postAdapter);
 
         Intent intent = getIntent();
-        id = intent.getStringExtra("USER_ID");
+        userid = intent.getStringExtra("USER_ID");
+
+        llFollowers.setOnClickListener(v -> {
+            Intent intent1 = new Intent(OthersProfileActivity.this, FollowsListActivity.class);
+            intent1.putExtra("USER_ID_FOLLOWS", userid);
+            intent1.putExtra("TITLE", "Followers");
+            startActivity(intent1);
+        });
+
+        llFollowing.setOnClickListener(v -> {
+            Intent intent2 = new Intent(OthersProfileActivity.this, FollowsListActivity.class);
+            intent2.putExtra("USER_ID_FOLLOWS", userid);
+            intent2.putExtra("TITLE", "Following");
+            startActivity(intent2);
+        });
 
         progressDialog = new ProgressDialog(this, R.style.DialogTheme);
         progressDialog.setCanceledOnTouchOutside(false);
@@ -100,7 +117,7 @@ public class OthersProfileActivity extends AppCompatActivity {
     }
 
     private void displayPublisherInfo() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(id);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -113,6 +130,9 @@ public class OthersProfileActivity extends AppCompatActivity {
                 if (user.getImage().equals("default")) {
                     ivProfile.setImageResource(R.drawable.user);
                 } else {
+                    if (getApplicationContext() == null) {
+                        return;
+                    }
                     Glide.with(getApplicationContext()).load(user.getImage()).into(ivProfile);
                 }
             }
@@ -133,7 +153,7 @@ public class OthersProfileActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     Post post = snapshot1.getValue(Post.class);
                     assert post != null;
-                    if (post.getPublisher().equals(id)) {
+                    if (post.getPublisher().equals(userid)) {
                         publisherPostsList.add(post);
                     }
                 }
@@ -155,7 +175,7 @@ public class OthersProfileActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child(id).exists()) {
+                if (snapshot.child(userid).exists()) {
                     btnFollow.setText("Following");
                     btnFollow.setBackgroundColor(getResources().getColor(R.color.colorDefaultBackground3));
                     btnFollow.setTextColor(getResources().getColor(R.color.accent_blue));
@@ -179,14 +199,14 @@ public class OthersProfileActivity extends AppCompatActivity {
         btnFollow.setOnClickListener(v -> {
             if (btnFollow.getText().toString().equals("Follow")) {
                 FirebaseDatabase.getInstance().getReference("Follows")
-                        .child(currentUser.getUid()).child("following").child(id).setValue(true);
+                        .child(currentUser.getUid()).child("following").child(userid).setValue(true);
                 FirebaseDatabase.getInstance().getReference("Follows")
-                        .child(id).child("followers").child(currentUser.getUid()).setValue(true);
+                        .child(userid).child("followers").child(currentUser.getUid()).setValue(true);
             } else {
                 FirebaseDatabase.getInstance().getReference("Follows")
-                        .child(currentUser.getUid()).child("following").child(id).removeValue();
+                        .child(currentUser.getUid()).child("following").child(userid).removeValue();
                 FirebaseDatabase.getInstance().getReference("Follows")
-                        .child(id).child("followers").child(currentUser.getUid()).removeValue();
+                        .child(userid).child("followers").child(currentUser.getUid()).removeValue();
             }
         });
     }
@@ -201,7 +221,7 @@ public class OthersProfileActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     Post post = snapshot1.getValue(Post.class);
                     assert post != null;
-                    if (post.getPublisher().equals(id)) {
+                    if (post.getPublisher().equals(userid)) {
                         i++;
                     }
                 }
@@ -217,7 +237,7 @@ public class OthersProfileActivity extends AppCompatActivity {
 
     private void displayFollowersAndFollowingCount() {
         DatabaseReference followersRef = FirebaseDatabase.getInstance().getReference("Follows")
-                .child(id).child("followers");
+                .child(userid).child("followers");
         followersRef.addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -232,7 +252,7 @@ public class OthersProfileActivity extends AppCompatActivity {
         });
 
         DatabaseReference followingRef = FirebaseDatabase.getInstance().getReference("Follows")
-                .child(id).child("following");
+                .child(userid).child("following");
         followingRef.addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
             @Override

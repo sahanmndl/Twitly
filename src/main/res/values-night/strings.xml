@@ -51,4 +51,8 @@
     <string name="comments">Comments</string>
     <string name="maximum_comments_reached">Maximum comments reached!</string>
     <string name="remove">Remove</string>
+    <string name="liked_by">Liked By</string>
+    <string name="no_one_liked_your_post_sedlyf">No one liked your post #SedLyf</string>
+    <string name="no_recent_activities">No recent activities</string>
+    <string name="notifications">Notifications</string>
 </resources>

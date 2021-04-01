@@ -1,10 +1,11 @@
 package com.applin.twitly.Adapters;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
@@ -16,11 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.applin.twitly.Activities.OthersProfileActivity;
 import com.applin.twitly.Entities.Comment;
-import com.applin.twitly.Entities.Post;
 import com.applin.twitly.Entities.User;
 import com.applin.twitly.R;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,12 +37,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     private final Context mContext;
     private final List<Comment> commentList;
+    private String postid;
 
     private FirebaseUser currentUser;
 
-    public CommentAdapter(Context mContext, List<Comment> commentList) {
+    public CommentAdapter(Context mContext, List<Comment> commentList, String postid) {
         this.mContext = mContext;
         this.commentList = commentList;
+        this.postid = postid;
     }
 
     @NonNull
@@ -55,6 +58,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         Comment comment = commentList.get(position);
+
+        Intent i = ((Activity) mContext).getIntent();
+        postid = i.getStringExtra("POST_ID");
 
         holder.tvComment.setText(comment.getComment());
         holder.tvTimestamp.setText(comment.getTimestamp());
@@ -74,7 +80,37 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 popupMenu.setOnMenuItemClickListener(item -> {
                     switch (item.getItemId()) {
                         case R.id.popup_btnDelete:
-                            Toast.makeText(mContext, "Deleted!", Toast.LENGTH_SHORT).show();
+                            if (postid != null) {
+                                AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+                                alertDialog.setTitle("Do you want to delete this comment?");
+
+                                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                                        (dialog, which) -> dialog.dismiss());
+
+                                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+                                        (dialog, which) -> {
+                                            FirebaseDatabase.getInstance().getReference("Comments")
+                                                    .child(postid).child(comment.getCommentid()).removeValue()
+                                                    .addOnCompleteListener(task -> {
+                                                        if (task.isSuccessful()) {
+                                                            Toast.makeText(mContext, "Comment deleted!", Toast.LENGTH_SHORT).show();
+                                                        } else {
+                                                            FirebaseAuthException exception = (FirebaseAuthException) task.getException();
+                                                            assert exception != null;
+                                                            Toast.makeText(mContext, "ERROR: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+
+                                            dialog.dismiss();
+                                        });
+
+                                alertDialog.show();
+
+                                return true;
+
+                            } else {
+                                Toast.makeText(mContext, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                            }
 
                         default:
                             return false;

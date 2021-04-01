@@ -19,21 +19,38 @@
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:layout_alignParentBottom="true"
+        android:background="@android:color/transparent"
         android:elevation="0dp"
         app:elevation="0dp"
         android:backgroundTint="@color/accent_grey">
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation_view"
+        <LinearLayout
+            android:id="@+id/layout_bottom"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?android:attr/windowBackground"
-            app:backgroundTint="@color/colorBottomNavBar"
-            android:layout_marginTop="0.1dp"
-            app:itemIconTint="@color/selector"
-            app:itemIconSize="@dimen/_15sdp"
-            app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/bottom_navigation_menu"/>
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_border"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:orientation="horizontal"
+                android:background="@color/accent_grey"
+                tools:ignore="Suspicious0dp" />
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?android:attr/windowBackground"
+                app:backgroundTint="@color/colorBottomNavBar"
+                app:itemIconTint="@color/selector"
+                app:itemIconSize="@dimen/_15sdp"
+                app:labelVisibilityMode="unlabeled"
+                app:menu="@menu/bottom_navigation_menu"/>
+
+        </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 

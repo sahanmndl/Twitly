@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorDefaultBackground3"
-    tools:context=".Fragments.NotificationsFragment">
+    tools:context=".Activities.LikedByActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/notifications_appBarLayout"
+        android:id="@+id/likedBy_appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:layout_alignParentTop="true"
@@ -17,7 +16,7 @@
         android:backgroundTint="@color/colorBarBackground2">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/notificationsToolbar"
+            android:id="@+id/likedByToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentInsetStart="0dp"
@@ -27,16 +26,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:layout_marginStart="@dimen/_14sdp"
-                android:layout_marginEnd="@dimen/_14sdp"
                 android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/notifications"
+                    android:text="@string/liked_by"
                     android:textColor="@color/colorText6"
                     android:textSize="@dimen/_16ssp"
                     android:fontFamily="@font/sf_medium"
@@ -52,7 +48,7 @@
         android:id="@+id/layout_border"
         android:layout_width="match_parent"
         android:layout_height="0.1dp"
-        android:layout_below="@id/notifications_appBarLayout"
+        android:layout_below="@id/likedBy_appBarLayout"
         android:orientation="horizontal"
         android:background="@color/accent_grey"/>
 
@@ -62,7 +58,7 @@
         android:layout_below="@id/layout_border">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/notifications_recyclerView"
+            android:id="@+id/likedBy_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="never"/>
@@ -70,12 +66,12 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <TextView
-        android:id="@+id/notifications_tvTag"
+        android:id="@+id/likedBy_tvTag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/notifications_appBarLayout"
+        android:layout_below="@id/likedBy_appBarLayout"
         android:layout_centerHorizontal="true"
-        android:text="@string/no_recent_activities"
+        android:text="@string/no_one_liked_your_post_sedlyf"
         android:textSize="@dimen/_12ssp"
         android:layout_marginTop="@dimen/_8sdp"
         android:visibility="gone"/>

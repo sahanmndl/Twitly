@@ -26,8 +26,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_14sdp"
-                android:layout_marginEnd="@dimen/_14sdp"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -171,7 +169,7 @@
                 android:textSize="@dimen/_13ssp"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:fontFamily="@font/sf_medium"/>
+                android:fontFamily="@font/roboto_regular"/>
 
             <LinearLayout
                 android:id="@+id/layout_border2"
@@ -195,11 +193,13 @@
                 tools:ignore="UseCompoundDrawables">
 
                 <LinearLayout
+                    android:id="@+id/ll1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    tools:ignore="UseCompoundDrawables">
+                    android:foreground="?android:attr/selectableItemBackground"
+                    tools:ignore="UnusedAttribute,UseCompoundDrawables">
 
                     <TextView
                         android:id="@+id/postView_likesCounter"
@@ -210,10 +210,11 @@
                         android:text="@string/_0"
                         android:textSize="@dimen/_13ssp"
                         android:textColor="@color/colorText6"
+                        android:textStyle="bold"
                         android:maxLines="1"
                         android:maxWidth="@dimen/_20sdp"
                         android:ellipsize="end"
-                        android:fontFamily="@font/sf_medium"/>
+                        android:fontFamily="@font/roboto_regular"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -230,6 +231,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll2"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -245,10 +247,11 @@
                         android:text="@string/_0"
                         android:textSize="@dimen/_13ssp"
                         android:textColor="@color/colorText6"
+                        android:textStyle="bold"
                         android:maxLines="1"
                         android:maxWidth="@dimen/_20sdp"
                         android:ellipsize="end"
-                        android:fontFamily="@font/sf_medium"/>
+                        android:fontFamily="@font/roboto_regular"/>
 
                     <TextView
                         android:layout_width="wrap_content"

@@ -15,10 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Twitly">
+        <activity android:name=".Activities.FollowsListActivity"></activity>
         <activity android:name=".Activities.PostViewActivity" />
         <activity android:name=".Activities.BookmarksActivity" />
         <activity android:name=".Activities.SettingsActivity" />
-        <activity android:name=".Activities.FollowersListActivity" />
+        <activity android:name=".Activities.LikedByActivity" />
         <activity android:name=".Activities.CommentsActivity" />
         <activity android:name=".Activities.SplashActivity">
             <intent-filter>
@@ -35,7 +36,9 @@
         <activity android:name=".Activities.ResetPasswordActivity" />
         <activity android:name=".Activities.RegisterActivity" />
         <activity android:name=".Activities.LoginActivity" />
-        <activity android:name=".Activities.MainActivity" />
+        <activity
+            android:name=".Activities.MainActivity"
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

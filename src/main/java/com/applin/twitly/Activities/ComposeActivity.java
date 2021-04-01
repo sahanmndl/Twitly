@@ -30,7 +30,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -106,7 +105,6 @@ public class ComposeActivity extends AppCompatActivity {
 
         charCounter();
         displayProfilePhoto();
-        setBtnPost();
     }
 
     private void post() {
@@ -206,7 +204,6 @@ public class ComposeActivity extends AppCompatActivity {
             reference.child(postid).setValue(hashMap).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     progressDialog.dismiss();
-                    startActivity(new Intent(ComposeActivity.this, MainActivity.class));
                     finish();
                 } else {
                     progressDialog.dismiss();
@@ -226,31 +223,6 @@ public class ComposeActivity extends AppCompatActivity {
     private String getPresentDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy", Locale.getDefault());
         return sdf.format(new Date());
-    }
-
-    private void setBtnPost() {
-        String postquery = currentUser.getUid() + "_" + getPresentDate();
-        Query query = FirebaseDatabase.getInstance().getReference("Posts")
-                .orderByChild("postquery").equalTo(postquery);
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    if (snapshot.getChildrenCount() >= 5) {
-                        Toast.makeText(ComposeActivity.this,
-                                "You have already posted 5 times today. Delete one if you want to post another.", Toast.LENGTH_SHORT).show();
-                        btnPost.setEnabled(false);
-                    } else {
-                        btnPost.setEnabled(true);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
     private void charCounter() {
