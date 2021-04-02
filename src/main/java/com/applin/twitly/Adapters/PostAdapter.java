@@ -24,6 +24,7 @@ import com.applin.twitly.Entities.User;
 import com.applin.twitly.R;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,6 +36,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
@@ -100,6 +102,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.btnComment.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, CommentsActivity.class);
             intent.putExtra("POST_ID", post.getPostid());
+            intent.putExtra("USER_ID", post.getPublisher());
             mContext.startActivity(intent);
         });
 
@@ -111,6 +114,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             } else {
                 FirebaseDatabase.getInstance().getReference("Likes")
                         .child(post.getPostid()).child(currentUser.getUid()).removeValue();
+                clearNotificationOnUnlike(post.getPublisher(), post.getPostid());
             }
         });
 
@@ -147,6 +151,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                                                 .child(post.getPostid()).removeValue();
                                         FirebaseDatabase.getInstance().getReference("Bookmarks")
                                                 .child(post.getPostid()).removeValue();
+
+                                        clearNotificationsOnPostDeletion(post.getPostid());
 
                                         String url = post.getPostimage();
                                         if (url != null) {
@@ -316,16 +322,70 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private void pushNotification(String userid, String postid, String publisher) {
         DatabaseReference notifyRef = FirebaseDatabase.getInstance().getReference("Notifications").child(userid);
-
         if (!userid.equals(currentUser.getUid())) {
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("sender", currentUser.getUid());
             hashMap.put("postid", postid);
             hashMap.put("receiver", publisher);
             hashMap.put("action", "liked your post!");
+            hashMap.put("type", "like");
             hashMap.put("pushed", true);
 
             notifyRef.push().setValue(hashMap);
         }
+    }
+
+    private void clearNotificationsOnPostDeletion(String postid) {
+        DatabaseReference notifyRef = FirebaseDatabase.getInstance().getReference("Notifications").child(currentUser.getUid());
+        notifyRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    if (Objects.requireNonNull(snapshot1.child("postid").getValue()).equals(postid)) {
+                        snapshot1.getRef().removeValue()
+                                .addOnCompleteListener(task -> {
+                                    if (!task.isSuccessful()) {
+                                        FirebaseAuthException exception = (FirebaseAuthException) task.getException();
+                                        assert exception != null;
+                                        Toast.makeText(mContext, "ERROR: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void clearNotificationOnUnlike(String publisher, String postid) {
+        DatabaseReference notifyRef = FirebaseDatabase.getInstance().getReference("Notifications").child(publisher);
+        notifyRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    if (Objects.equals(snapshot1.child("postid").getValue(), postid)) {
+                        if (Objects.equals(snapshot1.child("type").getValue(), "like")) {
+                            snapshot1.getRef().removeValue()
+                                    .addOnCompleteListener(task -> {
+                                        if (!task.isSuccessful()) {
+                                            FirebaseAuthException exception = (FirebaseAuthException) task.getException();
+                                            assert exception != null;
+                                            Toast.makeText(mContext, "ERROR: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

@@ -28,8 +28,6 @@ import java.util.List;
 
 public class NotificationsFragment extends Fragment {
 
-    private RecyclerView recyclerView;
-
     private NotificationAdapter notificationAdapter;
     private List<Notification> notificationList;
 
@@ -46,7 +44,7 @@ public class NotificationsFragment extends Fragment {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView = view.findViewById(R.id.notifications_recyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.notifications_recyclerView);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(notificationAdapter);

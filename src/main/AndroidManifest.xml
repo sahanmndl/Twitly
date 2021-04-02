@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Twitly">
-        <activity android:name=".Activities.FollowsListActivity"></activity>
+        <activity android:name=".Activities.FollowsListActivity" />
         <activity android:name=".Activities.PostViewActivity" />
         <activity android:name=".Activities.BookmarksActivity" />
         <activity android:name=".Activities.SettingsActivity" />

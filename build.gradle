@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.firebase-perf'
 }
 
 android {
@@ -42,6 +44,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:21.0.1'
     implementation 'androidx.navigation:navigation-fragment:2.3.4'
     implementation 'androidx.navigation:navigation-ui:2.3.4'
+    implementation 'com.google.firebase:firebase-inappmessaging-display:19.1.5'
+    implementation 'com.google.firebase:firebase-crashlytics:17.4.1'
+    implementation 'com.google.firebase:firebase-perf:19.1.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

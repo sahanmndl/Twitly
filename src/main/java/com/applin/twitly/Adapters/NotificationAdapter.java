@@ -88,6 +88,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 if (mContext == null) {
                     return;
                 }
+                assert user != null;
                 textView.setText(user.getName());
                 if (user.getImage().equals("default")) {
                     imageView.setImageResource(R.drawable.user);

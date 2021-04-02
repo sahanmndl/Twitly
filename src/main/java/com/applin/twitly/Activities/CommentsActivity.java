@@ -45,7 +45,7 @@ public class CommentsActivity extends AppCompatActivity {
     private CommentAdapter commentAdapter;
     private List<Comment> commentList;
 
-    private String postid;
+    private String postid, publisher;
 
     private FirebaseUser currentUser;
 
@@ -73,6 +73,7 @@ public class CommentsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         postid = intent.getStringExtra("POST_ID");
+        publisher = intent.getStringExtra("USER_ID");
 
         btnShare.setOnClickListener(v -> shareComment());
 
@@ -85,6 +86,7 @@ public class CommentsActivity extends AppCompatActivity {
         if (Objects.requireNonNull(etComment.getText()).toString().trim().equals("")) {
             Toast.makeText(this, "You can't share an empty comment", Toast.LENGTH_SHORT).show();
         } else {
+            btnShare.setEnabled(false);
             DatabaseReference commentsRef = FirebaseDatabase.getInstance().getReference("Comments").child(postid);
 
             String strCommentId = commentsRef.push().getKey();
@@ -102,7 +104,10 @@ public class CommentsActivity extends AppCompatActivity {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             etComment.setText("");
+                            pushNotification(strComment);
+                            btnShare.setEnabled(true);
                         } else {
+                            btnShare.setEnabled(true);
                             FirebaseAuthException exception = (FirebaseAuthException) task.getException();
                             assert exception != null;
                             Toast.makeText(CommentsActivity.this, "ERROR: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
@@ -138,7 +143,7 @@ public class CommentsActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.getChildrenCount() == 15) {
+                if (snapshot.getChildrenCount() == 20) {
                     etComment.setVisibility(View.GONE);
                     btnShare.setVisibility(View.GONE);
                     tvCounter.setVisibility(View.GONE);
@@ -167,6 +172,21 @@ public class CommentsActivity extends AppCompatActivity {
         tvCounter.setEditText(etComment);
         tvCounter.setMaxCharacters(150);
         tvCounter.setCharCountChangedListener((i, b) -> btnShare.setEnabled(!b));
+    }
+
+    private void pushNotification(String comment) {
+        DatabaseReference notifyRef = FirebaseDatabase.getInstance().getReference("Notifications").child(publisher);
+        if (!publisher.equals(currentUser.getUid())) {
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("sender", currentUser.getUid());
+            hashMap.put("postid", postid);
+            hashMap.put("receiver", publisher);
+            hashMap.put("action", "commented: " + comment);
+            hashMap.put("type", "comment");
+            hashMap.put("pushed", true);
+
+            notifyRef.push().setValue(hashMap);
+        }
     }
 
     private void setToolbar() {
