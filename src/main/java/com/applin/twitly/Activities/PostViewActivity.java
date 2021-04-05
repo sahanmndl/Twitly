@@ -25,6 +25,7 @@ import com.applin.twitly.R;
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -83,7 +84,7 @@ public class PostViewActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         commentList = new ArrayList<>();
-        commentAdapter = new CommentAdapter(this, commentList, postId);
+        commentAdapter = new CommentAdapter(this, commentList, postId, userId);
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -129,6 +130,14 @@ public class PostViewActivity extends AppCompatActivity {
                     ivProfilePic.setImageResource(R.drawable.user);
                 } else {
                     Glide.with(getApplicationContext()).load(user.getImage()).into(ivProfilePic);
+
+                    ivProfilePic.setOnClickListener(v -> {
+                        if (!post.getPublisher().equals(currentUser.getUid())) {
+                            Intent intent = new Intent(getApplicationContext(), OthersProfileActivity.class);
+                            intent.putExtra("USER_ID", post.getPublisher());
+                            startActivity(intent);
+                        }
+                    });
                 }
             }
 
@@ -256,10 +265,12 @@ public class PostViewActivity extends AppCompatActivity {
                                         FirebaseDatabase.getInstance().getReference("Bookmarks")
                                                 .child(post.getPostid()).removeValue();
 
+                                        clearNotificationsOnPostDeletion();
+
                                         String url = post.getPostimage();
                                         if (url != null) {
                                             StorageReference imagesRef = FirebaseStorage.getInstance().getReferenceFromUrl(url);
-                                            imagesRef.delete().addOnSuccessListener(aVoid -> Toast.makeText(PostViewActivity.this, "Post deleted!", Toast.LENGTH_SHORT).show())
+                                            imagesRef.delete().addOnSuccessListener(aVoid -> Toast.makeText(PostViewActivity.this, "Deleted!", Toast.LENGTH_SHORT).show())
                                                     .addOnFailureListener(e -> Toast.makeText(PostViewActivity.this, "ERROR: " + e.getMessage(), Toast.LENGTH_SHORT).show());
                                         } else {
                                             Toast.makeText(PostViewActivity.this, "Deleted!", Toast.LENGTH_SHORT).show();
@@ -283,6 +294,32 @@ public class PostViewActivity extends AppCompatActivity {
         } else {
             btnPopUp.setVisibility(View.GONE);
         }
+    }
+
+    private void clearNotificationsOnPostDeletion() {
+        DatabaseReference notifyRef = FirebaseDatabase.getInstance().getReference("Notifications").child(currentUser.getUid());
+        notifyRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    if (Objects.requireNonNull(snapshot1.child("postid").getValue()).equals(postId)) {
+                        snapshot1.getRef().removeValue()
+                                .addOnCompleteListener(task -> {
+                                    if (!task.isSuccessful()) {
+                                        FirebaseAuthException exception = (FirebaseAuthException) task.getException();
+                                        assert exception != null;
+                                        Toast.makeText(PostViewActivity.this, "ERROR: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void setToolbar() {

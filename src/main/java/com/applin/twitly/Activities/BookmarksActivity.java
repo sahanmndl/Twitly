@@ -69,6 +69,7 @@ public class BookmarksActivity extends AppCompatActivity {
         bookmarksRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                bookmarksList.clear();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     bookmarksList.add(snapshot1.getKey());
                 }
@@ -87,6 +88,7 @@ public class BookmarksActivity extends AppCompatActivity {
         postsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                postList.clear();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     Post post = snapshot1.getValue(Post.class);
 

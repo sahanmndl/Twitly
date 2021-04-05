@@ -69,7 +69,7 @@ public class CommentsActivity extends AppCompatActivity {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         commentList = new ArrayList<>();
-        commentAdapter = new CommentAdapter(this, commentList, postid);
+        commentAdapter = new CommentAdapter(this, commentList, postid, publisher);
 
         Intent intent = getIntent();
         postid = intent.getStringExtra("POST_ID");

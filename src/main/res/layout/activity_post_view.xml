@@ -74,7 +74,9 @@
                     android:layout_height="@dimen/_40sdp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/user"/>
+                    android:src="@drawable/user"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    tools:ignore="UnusedAttribute" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

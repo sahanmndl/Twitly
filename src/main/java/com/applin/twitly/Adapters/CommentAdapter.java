@@ -30,21 +30,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder>{
+public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
     private final Context mContext;
     private final List<Comment> commentList;
-    private String postid;
+    private String postid, publisher;
 
     private FirebaseUser currentUser;
 
-    public CommentAdapter(Context mContext, List<Comment> commentList, String postid) {
+    public CommentAdapter(Context mContext, List<Comment> commentList, String postid, String publisher) {
         this.mContext = mContext;
         this.commentList = commentList;
         this.postid = postid;
+        this.publisher = publisher;
     }
 
     @NonNull
@@ -61,6 +63,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         Intent i = ((Activity) mContext).getIntent();
         postid = i.getStringExtra("POST_ID");
+        publisher = i.getStringExtra("USER_ID");
 
         holder.tvComment.setText(comment.getComment());
         holder.tvTimestamp.setText(comment.getTimestamp());
@@ -93,7 +96,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                                     .child(postid).child(comment.getCommentid()).removeValue()
                                                     .addOnCompleteListener(task -> {
                                                         if (task.isSuccessful()) {
-                                                            Toast.makeText(mContext, "Comment deleted!", Toast.LENGTH_SHORT).show();
+                                                            clearNotificationOnCommentDeletion(publisher, postid);
+                                                            Toast.makeText(mContext, "Comment Deleted!", Toast.LENGTH_SHORT).show();
                                                         } else {
                                                             FirebaseAuthException exception = (FirebaseAuthException) task.getException();
                                                             assert exception != null;
@@ -158,6 +162,34 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 Glide.with(mContext).load(user.getImage()).into(circleImageView);
                 name.setText(user.getName());
                 username.setText("@" + user.getUsername());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void clearNotificationOnCommentDeletion(String publisher, String postid) {
+        DatabaseReference notifyRef = FirebaseDatabase.getInstance().getReference("Notifications").child(publisher);
+        notifyRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    if (Objects.equals(snapshot1.child("postid").getValue(), postid)) {
+                        if (Objects.equals(snapshot1.child("type").getValue(), "comment")) {
+                            snapshot1.getRef().removeValue()
+                                    .addOnCompleteListener(task -> {
+                                        if (!task.isSuccessful()) {
+                                            FirebaseAuthException exception = (FirebaseAuthException) task.getException();
+                                            assert exception != null;
+                                            Toast.makeText(mContext, "ERROR: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    }
+                }
             }
 
             @Override

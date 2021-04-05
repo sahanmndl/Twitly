@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.applin.twitly.Activities.OthersProfileActivity;
 import com.applin.twitly.Activities.PostViewActivity;
 import com.applin.twitly.Entities.Notification;
 import com.applin.twitly.Entities.User;
@@ -51,9 +52,15 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.tvAction.setText(notification.getAction());
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, PostViewActivity.class);
-            intent.putExtra("POST_ID", notification.getPostid());
-            intent.putExtra("USER_ID", notification.getReceiver());
+            Intent intent;
+            if (notification.getType().equals("follow")) {
+                intent = new Intent(mContext, OthersProfileActivity.class);
+                intent.putExtra("USER_ID", notification.getSender());
+            } else {
+                intent = new Intent(mContext, PostViewActivity.class);
+                intent.putExtra("POST_ID", notification.getPostid());
+                intent.putExtra("USER_ID", notification.getReceiver());
+            }
             mContext.startActivity(intent);
         });
     }
